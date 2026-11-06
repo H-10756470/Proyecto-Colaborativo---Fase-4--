@@ -1,1 +1,1 @@
-# Este es el script principal (Parte E)
+# Este es el script principal. Corresponde a la Parte E.
