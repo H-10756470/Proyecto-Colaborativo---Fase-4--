@@ -1,1 +1,1 @@
-# Este archivo corresponde a la parte A.
+# Este archivo corresponde a la parte A. aqui se crean las excepciones personalisadas.
