@@ -1,5 +1,5 @@
 class SoftwareFJError(Exception):
-    """Esta clase sirve de clase padre para todas las demas excepciones personalizadas"""
+    """Esta clase sirve de clase padre para todas las demas excepciones personalizadas del sistema"""
     pass
 
 class ClienteIdentificacionError(SoftwareFJError):
@@ -7,10 +7,10 @@ class ClienteIdentificacionError(SoftwareFJError):
     pass
 
 class ServicioNoEncontradoError(SoftwareFJError):
-    """Esta excepcion se usa cuando el cliente solicita un servicio que no provehe Software FJ."""
+    """Esta excepcion se usa cuando el cliente solicita un servicio que no provehe Software FJ o lo solicita mal."""
     pass
 
-class ReservInvalidaError(SoftwareFJError):
+class ReservaInvalidaError(SoftwareFJError):
     """Esta excepcion se usa cuando el cliente hace una reserva invalida."""
     pass
 

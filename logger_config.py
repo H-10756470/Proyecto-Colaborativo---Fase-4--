@@ -16,7 +16,7 @@ class ConfiguradorLogger:
 
         # Aqui creo el manejador de archivo para guardar los logs en un archivo.
         # Si el archivo de log ya existe, se sobreescribe.
-        file_handler = logging.FileHandler(self.nombre_archivo_log)
+        file_handler = logging.FileHandler(self.nombre_archivo_log, encoding='utf-8')
         file_handler.setLevel(self.nivel_log)
 
         # Aqui defino el formato de los logs.
