@@ -10,3 +10,5 @@ class Cliente(EntidadBasica):
         self._nombre = nombre
         self._telefono = telefono
         self._correo = correo
+
+#---ENCAPSULACIÓN
