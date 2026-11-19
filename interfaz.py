@@ -1,10 +1,11 @@
 import tkinter as tk
-from tkinter import ttk
+
+# Esta clase es para crear la ventana principal de Software FJ.
 class SoftwareFJInterfaz:
     def __init__(self, ventana_principal): 
         self.ventana_principal = ventana_principal
-        self.ventana_principal.title("Software FJ")
-        self.ventana_principal.state('zoomed')  # Esto hace que la ventana sea de pantalla completa, sin ocultar la barra de tareas
+        self.ventana_principal.title("Software FJ - Sistema de Gestion de Clientes, Servicios y Reservas")
+        self.ventana_principal.state('zoomed')  # Esto hace que la ventana sea de pantalla completa pero sin ocultar la barra de tareas.
         self.ventana_principal.minsize(800, 600)  # Tamaño mínimo de la ventana
         self.ventana_principal.config(bg="#1e1e1e")  # Este es el color de fondo oscuro.
 
@@ -12,24 +13,40 @@ class SoftwareFJInterfaz:
         self.ventana_principal.rowconfigure(0, weight=1)
         self.ventana_principal.columnconfigure(0, weight=1)
 
-        # Contenedor principal adaptable
-        main_frame = tk.Frame(self.ventana_principal, bg="#1e1e1e")
-        main_frame.grid(row=0, column=0, sticky="nsew") # Esto hace que el contenedor principal se expanda para llenar toda la ventana.
+        # Aqui creo el frame principal y la barra lateral izquierda. El frame principal es donde se mostrara la informacion de los clientes, servicios y reservas. 
+        self.frame_principal = tk.Frame(self.ventana_principal, bg="#0C1A34")  # Este es el color de fondo azul oscuro.
+        self.frame_principal.pack(side="right", fill="both", expand=True)
 
-        # Aqui se configuran las filas del contenedor principal para que se ajusten al tamaño de la ventana.
-        main_frame.rowconfigure(0, weight=1)
-        main_frame.rowconfigure(1, weight=0)
-        main_frame.columnconfigure(0, weight=1)
+        # Aqui creo los widgets hijos del frame principal. Estos widgets son los que se mostraran en la parte derecha de la ventana, donde se mostrara la informacion de los clientes, servicios y reservas.
+        # Mas adelante desarrollare esta parte.
 
-        titulo = tk.Label(main_frame, text="Panel Adaptable - Software FJ", bg="#1e1e1e", fg="white", font=("Arial", 16, "bold"))
-        titulo.grid(row=0, column=0, pady=20)
+        # La barra lateral izquierda es donde estaran los botones para navegar entre las diferentes secciones del software.
+        self.barra_lateral_izquierda = tk.Frame(self.ventana_principal, bg="#0C1A34", width=200)
+        self.barra_lateral_izquierda.pack(side="left", fill="y")
+        self.barra_lateral_izquierda.pack_propagate(False)  # Esto evita que la barra lateral se ajuste automáticamente al tamaño de sus widgets internos.
         
-        
+        # Aqui dentro del frame menu, creo los botones Inicio, Clientes, Servicios, Reservas y Logs. Estos botones seran los que permitan navegar entre las diferentes secciones del software.
+        self.menu = tk.Frame(self.barra_lateral_izquierda, bg="#0C1A34")
+        self.menu.pack(fill="both", expand=True)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = SoftwareFJInterfaz(root)
-    root.mainloop()   
+        self.boton_inicio = tk.Button(self.menu, text="Inicio", font=("Arial", 14), bg="#0C1A34", fg="white")
+        self.boton_inicio.pack(fill="x")
 
+        self.boton_clientes = tk.Button(self.menu, text="Clientes", font=("Arial", 14), bg="#0C1A34", fg="white")
+        self.boton_clientes.pack(fill="x")
+
+        self.boton_servicios = tk.Button(self.menu, text="Servicios", font=("Arial", 14), bg="#0C1A34", fg="white")
+        self.boton_servicios.pack(fill="x")
+
+        self.boton_reservas = tk.Button(self.menu, text="Reservas", font=("Arial", 14), bg="#0C1A34", fg="white")
+        self.boton_reservas.pack(fill="x")
+
+        self.boton_logs = tk.Button(self.menu, text="Logs", font=("Arial", 14), bg="#0C1A34", fg="white")
+        self.boton_logs.pack(fill="x")
+
+    def lanzar_interfaz(self):
+        self.ventana_principal.mainloop()       
+
+   
 
       
