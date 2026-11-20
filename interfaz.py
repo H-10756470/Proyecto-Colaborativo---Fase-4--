@@ -51,7 +51,8 @@ class SoftwareFJInterfaz:
             anchor="w", 
             padx=20,
             activebackground="#162B50",
-            activeforeground="white"
+            activeforeground="white",
+            command=self.mostrar_clientes  # Este comando llama a la funcion mostrar_clientes cuando se presiona el boton Clientes.
         )
         self.boton_clientes.pack(fill="x", pady=3)
         self.configurar_efectos_hover(self.boton_clientes)  # Configuro los efectos hover para el boton Clientes.
@@ -93,12 +94,15 @@ class SoftwareFJInterfaz:
         # Aqui creo el label de la parte inferior para mostrar el logotipo de Software Fj.
         self.label_logotipo = tk.Label(self.barra_lateral_izquierda, text="Software FJ", font=("Arial", 12), bg="#0C1A34", fg="white")
         self.label_logotipo.pack(side="bottom", fill="x")
+
+    def mostrar_clientes(self):
+        self.titulo_clientes = tk.Label(self.frame_principal, text="Clientes", font=("Arial", 24), bg="#0C1A34", fg="white")
+        self.titulo_clientes.pack(pady=20)
         
     def configurar_efectos_hover(self, boton):
         """Esta funcion configura los efectos hover para los botones de la barra lateral izquierda. Cuando el mouse pasa por encima del boton, el color de fondo cambia a un azul mas oscuro. Cuando el mouse sale del boton, el color de fondo vuelve a su color original."""
         boton.bind("<Enter>", lambda e: boton.config(bg="#162B50"))
         boton.bind("<Leave>", lambda e: boton.config(bg="#0C1A34"))
-
 
     def lanzar_interfaz(self):
         """Esta funcion lanza la interfaz grafica del software. Es la funcion que se llama desde el script principal main.py para iniciar el programa."""
