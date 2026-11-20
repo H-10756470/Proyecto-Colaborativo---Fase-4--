@@ -13,7 +13,7 @@ class Cliente(EntidadBasica):
         self._telefono = telefono
         self._correo = correo
 
-@property
+    @property
     def nombre(self) -> str:
         """Getter que retorna el nombre del cliente."""
         return self._nombre
@@ -33,7 +33,7 @@ class Cliente(EntidadBasica):
         """Setter que permite actualizar el teléfono del cliente."""
         self._telefono = valor
 
-@property
+    @property
     def correo(self) -> str:
         """Getter que retorna el correo del cliente."""
         return self._correo
