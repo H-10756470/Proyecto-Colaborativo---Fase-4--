@@ -1,4 +1,5 @@
 #  Aqui se crea la clase abstracta Servicio y las clases que heredan de ella: Subclases especializadas (Salas, Equipos, Asesorías). Corresponde a la Parte C
 class Servicio:
   pass
-hola mundo
+"hola gracias por la ayuda"
+git add .
