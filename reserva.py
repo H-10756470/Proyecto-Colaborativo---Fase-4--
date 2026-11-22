@@ -10,7 +10,7 @@ from servicios import Servicio
 class Reserva(EntidadBasica):
     """Esta clase representa una reserva de Software FJ. Junta un cliente, un servicio, la duracion en horas y el estado de la reserva. Hereda de EntidadBasica."""
 
-    def __init__(self, identificador, cliente, servicio, duracion):
+    def __init__(self, identificador, cliente, servicio, duracion,fecha=None):
         # Aqui uso try/except para controlar los errores al crear la reserva.
         try:
             # El constructor de EntidadBasica valida el identificador (si esta vacio lanza ValueError)
@@ -32,6 +32,8 @@ class Reserva(EntidadBasica):
             self._cliente = cliente
             self._servicio = servicio
             self._duracion = self.validar_duracion(duracion)
+            #APORTE: si no se envia fecha, la reserva queda para hoy
+            self._fecha = self.validar_fecha(fecha if fecha is not None else date.today().isoformat())
             # Toda reserva nueva empieza en estado Pendiente
             self._estado = "Pendiente"
             self._costo_total = 0
@@ -76,17 +78,54 @@ class Reserva(EntidadBasica):
             logger.error(f"Se intento cambiar la duracion de la reserva {self.identificador} que esta {self._estado}.")
             raise excepciones.OperacionNoPermitidaError("Solo se puede cambiar la duracion de una reserva pendiente.")
         self._duracion = self.validar_duracion(valor)
+        
+  # APORTE: atributo fecha con su getter y setter
+    @property
+    def fecha(self):
+        """Getter que retorna la fecha de la reserva (formato AAAA-MM-DD)."""
+        return self._fecha
 
+    @fecha.setter
+    def fecha(self, valor):
+        """Setter que valida y cambia la fecha. Solo se puede cambiar si la reserva esta Pendiente."""
+        if self._estado != "Pendiente":
+            logger.error(f"Se intento cambiar la fecha de la reserva {self.identificador} que esta {self._estado}.")
+            raise excepciones.OperacionNoPermitidaError("Solo se puede cambiar la fecha de una reserva pendiente.")
+        self._fecha = self.validar_fecha(valor)
+        
     def validar_duracion(self, valor):
         """Esta funcion revisa que la duracion sea un numero entero entre 1 y 12 horas y la devuelve ya convertida."""
         # Aqui convierto el valor a entero, si falla encadeno el error original con "from"
         try:
-            duracion = int(valor)
+            
+              duracion = int(valor)
         except (ValueError, TypeError) as error:
             raise excepciones.DatoInvalidoError("La duracion debe ser un numero entero de horas.") from error
         if duracion <= 0 or duracion > 12:
             raise excepciones.ReservaInvalidaError("La duracion debe estar entre 1 y 12 horas.")
         return duracion
+          def validar_fecha(self, valor):
+        """APORTE: revisa que la fecha no este vacia, que exista (AAAA-MM-DD) y que no sea anterior a hoy."""
+        if valor is None or not str(valor).strip():
+            raise excepciones.ReservaInvalidaError("La fecha de la reserva no puede estar vacia.")
+        # Si el texto no es una fecha real, strptime lanza ValueError y lo encadeno con "from"
+        try:
+            fecha = datetime.strptime(str(valor).strip(), "%Y-%m-%d").date()
+        except ValueError as error:
+            raise excepciones.DatoInvalidoError("La fecha debe existir y tener el formato AAAA-MM-DD.") from error
+        if fecha < date.today():
+            raise excepciones.ReservaInvalidaError("No se puede reservar en una fecha pasada.")
+        return fecha.isoformat()
+
+    # APORTE: historial de movimientos de la reserva
+    def _registrar_historial(self, accion):
+        """Guarda en una lista interna cada cambio de la reserva con su fecha y hora."""
+        self._historial.append(f"{datetime.now():%Y-%m-%d %H:%M:%S} - {accion}")
+
+    def mostrar_historial(self):
+        """Devuelve una copia del historial de cambios de la reserva."""
+        return list(self._historial)
+        
 
     # Aqui hago la confirmacion
 
@@ -182,14 +221,32 @@ class Reserva(EntidadBasica):
         )
 
     def actualizar_informacion_entidad(self, **kwargs):
-        """Implementacion del metodo abstracto para modificar los datos de la reserva. Solo se puede cambiar la duracion."""
+        """Implementacion del metodo abstracto para modificar los datos de la reserva. Solo se puede cambiar la duracion y la fecha, juntas o por separado."""
+     # APORTE: campos permitidos; si llega otro campo se lanza error en vez de ignorarlo
+        permitidos = ("duracion", "fecha")
+        try:
+            for campo in kwargs:
+                if campo not in permitidos:
+                    raise excepciones.DatoInvalidoError(f"El campo '{campo}' no se puede actualizar en una reserva.")
+            # Se guardan los valores actuales por si hay que deshacer un cambio a medias
+            duracion_anterior, fecha_anterior = self._duracion, self._fecha
         try:
             if "duracion" in kwargs:
                 self.duracion = kwargs["duracion"]
-        except excepciones.SoftwareFJError as error:
+             if "fecha" in kwargs:
+                    self.fecha = kwargs["fecha"]  
+                   except excepciones.SoftwareFJError:
+                # Si falla uno de los dos, no se cambia ninguno
+                self._duracion, self._fecha = duracion_anterior, fecha_anterior
+             raise
+          except excepciones.SoftwareFJError as error:
             logger.error(f"Error al actualizar la reserva {self.identificador}: {error}")
             raise
         else:
+  if kwargs:
+                self._registrar_historial(f"Actualizada: {', '.join(kwargs)}")
             logger.info(f"Reserva {self.identificador} actualizada correctamente.")
         finally:
-            logger.debug(f"Fin de actualizacion para la reserva {self.identificador}.")
+            logger.debug(f"Fin de actualizacion para la reserva {self.identificador}.") 
+
+
