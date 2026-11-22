@@ -13,3 +13,6 @@
 2026-11-22 07:30:50,607 - SoftwareFJ - INFO - Reserva creada: R2
 2026-11-22 07:31:08,473 - SoftwareFJ - INFO - Reserva creada: R3
 2026-11-22 07:31:49,663 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
+2026-11-22 09:24:22,854 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
+2026-11-22 14:02:08,190 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
+2026-11-22 14:02:26,904 - SoftwareFJ - ERROR - [Interfaz] ReservaInvalidaError: Debe seleccionar un cliente y un servicio
