@@ -2,3 +2,5 @@
 
 
 2026-11-21 22:32:42,311 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
+2026-11-21 22:37:39,837 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
+2026-11-21 22:37:53,213 - SoftwareFJ - ERROR - [Interfaz] DatoInvalidoError: El campo precio debe ser un numero valido | Causa: ValueError: could not convert string to float: ''
