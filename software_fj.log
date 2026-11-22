@@ -4,3 +4,43 @@
 2026-11-21 22:32:42,311 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
 2026-11-21 22:37:39,837 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
 2026-11-21 22:37:53,213 - SoftwareFJ - ERROR - [Interfaz] DatoInvalidoError: El campo precio debe ser un numero valido | Causa: ValueError: could not convert string to float: ''
+2026-11-21 22:53:29,103 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
+2026-11-21 22:53:39,254 - SoftwareFJ - ERROR - [Interfaz] DatoInvalidoError: El campo precio debe ser un numero valido | Causa: ValueError: could not convert string to float: ''
+2026-11-22 07:11:17,092 - SoftwareFJ - INFO - Se inicio la interfaz de Software FJ
+2026-11-22 07:11:20,833 - SoftwareFJ - INFO - ---------- Inicia la simulacion de operaciones ----------
+2026-11-22 07:11:20,833 - SoftwareFJ - INFO - Cliente registrado: 1012345678 - Juan Perez
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - Error de validación en cliente: La cédula/ID debe ser texto numérico y no estar vacía.
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - [Interfaz] ClienteIdentificacionError: La cédula/ID debe ser texto numérico y no estar vacía.
+2026-11-22 07:11:20,833 - SoftwareFJ - INFO - Cliente registrado: 1098765432 - Maria Gomez
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - Error de validación en cliente: El formato del correo electrónico es inválido.
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - [Interfaz] ClienteIdentificacionError: El formato del correo electrónico es inválido.
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - Error: El cliente con ID '999999999' no se ha registrado aún.
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - [Interfaz] ClienteIdentificacionError: Error: El cliente con ID '999999999' no se ha registrado aún.
+2026-11-22 07:11:20,833 - SoftwareFJ - INFO - Servicio creado: S1 - Sala de juntas (Reserva de sala)
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - Error creando servicio: No se puede asignar un precio negativo.
+2026-11-22 07:11:20,833 - SoftwareFJ - ERROR - [Interfaz] OperacionNoPermitidaError: No se puede asignar un precio negativo.
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Servicio creado: S2 - Portatil (Alquiler de equipo)
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Servicio creado: S3 - Asesoria Python (Asesoria especializada)
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - Error creando servicio: El nombre del servicio no puede estar vacio.
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - [Interfaz] DatoInvalidoError: El nombre del servicio no puede estar vacio.
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Reserva creada: R1
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Reserva R1 confirmada correctamente.
+2026-11-22 07:11:20,834 - SoftwareFJ - DEBUG - Fin del intento de confirmacion de la reserva R1.
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - [Interfaz] DatoInvalidoError: El campo duracion (horas) debe ser un numero valido | Causa: ValueError: invalid literal for int() with base 10: 'abc'
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Reserva R1 cancelada correctamente.
+2026-11-22 07:11:20,834 - SoftwareFJ - DEBUG - Fin del intento de cancelacion de la reserva R1.
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - Error al cancelar la reserva R1: La reserva R1 ya esta cancelada.
+2026-11-22 07:11:20,834 - SoftwareFJ - DEBUG - Fin del intento de cancelacion de la reserva R1.
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - [Interfaz] OperacionNoPermitidaError: La reserva R1 ya esta cancelada.
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - Error de validacion en la reserva R2: El servicio Portatil no esta disponible.
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - [Interfaz] ServicioNoDisponibleError: El servicio Portatil no esta disponible.
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Reserva creada: R2
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Reserva R2 confirmada correctamente.
+2026-11-22 07:11:20,834 - SoftwareFJ - DEBUG - Fin del intento de confirmacion de la reserva R2.
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Reserva R2 procesada. Costo total: $128520.0
+2026-11-22 07:11:20,834 - SoftwareFJ - DEBUG - Fin del procesamiento de la reserva R2.
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Reserva creada: R3
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - Error al procesar la reserva R3: Solo se pueden procesar reservas confirmadas, esta reserva esta Pendiente.
+2026-11-22 07:11:20,834 - SoftwareFJ - DEBUG - Fin del procesamiento de la reserva R3.
+2026-11-22 07:11:20,834 - SoftwareFJ - ERROR - [Interfaz] ReservaInvalidaError: No se pudo procesar la reserva R3. | Causa: OperacionNoPermitidaError: Solo se pueden procesar reservas confirmadas, esta reserva esta Pendiente.
+2026-11-22 07:11:20,834 - SoftwareFJ - INFO - Fin de la simulacion. Exitosas: 9 - Con error controlado: 9

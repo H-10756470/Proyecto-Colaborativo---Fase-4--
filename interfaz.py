@@ -1,15 +1,15 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
- 
+
 import excepciones
 import servicios
 from cliente import Cliente
 from logger_config import logger, logger_configuracion
- 
+
 # Importamos la clase Reserva de la Parte D
 from reserva import Reserva
- 
- 
+
+
 # Esta clase es para crear la ventana principal de Software FJ.
 class SoftwareFJInterfaz:
     def __init__(self, ventana_principal): 
@@ -18,27 +18,27 @@ class SoftwareFJInterfaz:
         self.ventana_principal.geometry("1080x650") # tamano de la ventana
         self.ventana_principal.minsize(1080, 650)  # Tamaño mínimo de la ventana
         self.ventana_principal.config(bg="#1e1e1e")  # Este es el color de fondo oscuro.
- 
+
         # Esto permite que la ventana y sus widgets se ajusten al tamaño de pantalla del dispositivo donde se ejecute el programa, haciendo que la interfaz sea responsiva.
         self.ventana_principal.rowconfigure(0, weight=1)
         self.ventana_principal.columnconfigure(0, weight=1)
- 
+
         # Aqui creo el frame principal y la barra lateral izquierda. El frame principal es donde se mostrara la informacion de los clientes, servicios y reservas. 
         self.frame_principal = tk.Frame(self.ventana_principal, bg="#0C1A34")  # Este es el color de fondo azul oscuro.
         self.frame_principal.pack(side="right", fill="both", expand=True)
- 
+
         # Aqui creo los widgets hijos del frame principal. Estos widgets son los que se mostraran en la parte derecha de la ventana, donde se mostrara la informacion de los clientes, servicios y reservas.
         # Mas adelante desarrollare esta parte.
- 
+
         # La barra lateral izquierda es donde estaran los botones para navegar entre las diferentes secciones del software.
         self.barra_lateral_izquierda = tk.Frame(self.ventana_principal, bg="#10264E", width=200)
         self.barra_lateral_izquierda.pack(side="left", fill="y")
         self.barra_lateral_izquierda.pack_propagate(False)  # Esto evita que la barra lateral se ajuste automáticamente al tamaño de sus widgets internos.
- 
+
         # Aqui dentro del frame menu, creo los botones Inicio, Clientes, Servicios, Reservas y Logs. Estos botones seran los que permitan navegar entre las diferentes secciones del software.
         self.menu = tk.Frame(self.barra_lateral_izquierda, bg="#10264E")
         self.menu.pack(fill="both", expand=True)
- 
+
         self.boton_inicio = tk.Button(
             self.menu, 
             text="🏠  Inicio", 
@@ -52,7 +52,7 @@ class SoftwareFJInterfaz:
         self.boton_inicio.pack(fill="x", pady=6)
         self.configurar_efectos_hover(self.boton_inicio)  # Configuro los efectos hover para el boton Inicio.
         self.quitar_bordes_botones(self.boton_inicio)
- 
+
         self.boton_clientes = tk.Button(
             self.menu, 
             text="👤 Clientes", 
@@ -67,7 +67,7 @@ class SoftwareFJInterfaz:
         self.boton_clientes.pack(fill="x", pady=6)
         self.configurar_efectos_hover(self.boton_clientes)  # Configuro los efectos hover para el boton Clientes.
         self.quitar_bordes_botones(self.boton_clientes)
- 
+
         self.boton_servicios = tk.Button(
             self.menu, text="⚙️ Servicios", 
             font=("Segoe UI", 17), 
@@ -80,7 +80,7 @@ class SoftwareFJInterfaz:
         self.boton_servicios.pack(fill="x", pady=6)
         self.configurar_efectos_hover(self.boton_servicios)  # Configuro los efectos hover para el boton Servicios.
         self.quitar_bordes_botones(self.boton_servicios)
- 
+
         self.boton_reservas = tk.Button(
             self.menu, text="📅 Reservas", 
             font=("Segoe UI", 17), 
@@ -93,7 +93,7 @@ class SoftwareFJInterfaz:
         self.boton_reservas.pack(fill="x", pady=6)
         self.configurar_efectos_hover(self.boton_reservas)  # Configuro los efectos hover para el boton Reservas.
         self.quitar_bordes_botones(self.boton_reservas)
- 
+
         self.boton_logs = tk.Button(
             self.menu, 
             text="📄 Logs", 
@@ -107,26 +107,26 @@ class SoftwareFJInterfaz:
         self.boton_logs.pack(fill="x", pady=6)
         self.configurar_efectos_hover(self.boton_logs)  # Configuro los efectos hover para el boton Logs.
         self.quitar_bordes_botones(self.boton_logs)
- 
+
         # Aqui creo el label de la parte inferior para mostrar el logotipo de Software Fj.
         self.label_logotipo = tk.Label(self.barra_lateral_izquierda, text="   FJ♟️", font=("Courier New", 25), bg="#10264E", fg="white")
         self.label_logotipo.pack(side="bottom", fill="x")
         # Aqui pongo el nombre de la empresa
         self.label_nombre_empresa = tk.Label(self.barra_lateral_izquierda, text="Software", font=("Courier New", 25), bg="#10264E", fg="white")
         self.label_nombre_empresa.pack(side="bottom", fill="x")
- 
+
         # Los clientes ya se guardan en Cliente.clientes_registrados. Aqui creo las listas internas para los servicios y las reservas, ya que no se usan bases de datos.
         self.lista_servicios = []
         self.lista_reservas = []
         logger.info("Se inicio la interfaz de Software FJ")
- 
+
         # Hace que se muestre al iniciar la pestaña Inicio
         self.mostrar_pestaña_inicio()
- 
+
     def limpiar_frame_principal(self):
         for widget in self.frame_principal.winfo_children():
             widget.destroy()
- 
+
     def mostrar_pestaña_inicio(self):
         self.limpiar_frame_principal()
         frame_encabezado_inicio = tk.Frame(self.frame_principal, bg="#0C1A34")
@@ -159,21 +159,17 @@ class SoftwareFJInterfaz:
         boton_Eventos = tk.Button(frame_botones_fila2, text="📄 | Eventos y Logs", font=("Segoe UI", 27), bg="#F72C2F", fg="white", width=20, height=2, command=self.mostrar_pestaña_logs, activebackground="#740505", activeforeground="#FCFCFC")
         boton_Eventos.pack(side="left", padx=10, pady=20)
         self.quitar_bordes_botones(boton_Eventos)
- 
+
         # Este es el frame que contendra los labels que mostraran un resumen del sistema.
         frame_resumen = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_resumen.pack(fill="both", expand=True)
- 
+
         # Aqui muestro cuantos clientes, servicios y reservas hay registrados.
         texto_resumen = "Clientes: " + str(len(Cliente.clientes_registrados)) + "   |   Servicios: " + str(len(self.lista_servicios)) + "   |   Reservas: " + str(len(self.lista_reservas))
         etiqueta_resumen = tk.Label(frame_resumen, text=texto_resumen, font=("Segoe UI", 16), bg="#0C1A34", fg="#DDE8FF")
         etiqueta_resumen.pack(pady=10)
-        # Este boton ejecuta la simulacion de operaciones validas e invalidas que pide la guia.
-        boton_simular = tk.Button(frame_resumen, text="▶ Simular operaciones (validas e invalidas)", font=("Segoe UI", 16), bg="#7A3FE0", fg="white", activebackground="#A678F5", activeforeground="white", command=self.simular_operaciones)
-        boton_simular.pack(pady=5)
-        self.quitar_bordes_botones(boton_simular)
- 
- 
+
+
     def mostrar_pestaña_clientes(self):
         self.limpiar_frame_principal()
         # Aqui creo el encabezado de la pestaña Clientes, que incluye un H1 y un subtitulo.
@@ -192,16 +188,16 @@ class SoftwareFJInterfaz:
         campo_buscar_cliente.pack(side="left", fill="x", padx=20, pady=50, expand=True)
         campo_buscar_cliente.insert(0, "Ingrese documento de identidad...")  # Texto de ejemplo en el campo de búsqueda
         campo_buscar_cliente.bind("<FocusIn>", lambda e: campo_buscar_cliente.delete(0, "end"))
- 
+
         # Este es el boton "Buscar", llama a la funcion buscar_cliente con lo que se escribio en el campo.
         boton_buscar_cliente = tk.Button(frame_busqueda_clientes, text="🔍 Buscar", font=("Segoe UI", 16), bg="#0060FD", fg="white", activebackground="#2CC8F7", activeforeground="#022211", command=lambda: self.buscar_cliente(campo_buscar_cliente.get()))
         boton_buscar_cliente.pack(side="left", padx=(0, 20), pady=50)
         self.quitar_bordes_botones(boton_buscar_cliente)
- 
+
         registrar_nuevo_cliente = tk.Button(frame_busqueda_clientes, text="➕ Registrar nuevo cliente ", font=("Segoe UI", 16), bg="#0AA552", fg="white", activebackground="#2CF769", activeforeground="#022211", command=self.abrir_formulario_cliente)
         registrar_nuevo_cliente.pack(side="left", fill="x", expand=True, pady=50)
         self.quitar_bordes_botones(registrar_nuevo_cliente)
- 
+
         # Aqui creo el frame que contendra la lista de registro de todos los clientes.
         self.frame_lista_clientes = tk.Frame(self.frame_principal, bg="#0C1A34")
         self.frame_lista_clientes.pack(side="top", fill="both", expand=True)
@@ -212,17 +208,17 @@ class SoftwareFJInterfaz:
         # ERROR CORREGIDO: antes la columna se llamaba "correo electronico" pero en heading y column se usaba "correo", eso daba TclError al abrir la pestaña.
         columnas = ("identificador", "nombre", "telefono", "correo")
         tabla = ttk.Treeview(self.frame_lista_clientes, columns=columnas, show="headings")
- 
+
         tabla.heading("identificador", text="Identificador")
         tabla.heading("nombre", text="Nombre")
         tabla.heading("telefono", text="Teléfono")
         tabla.heading("correo", text="Correo")
- 
+
         tabla.column("identificador", width=150)
         tabla.column("nombre", width=200)
         tabla.column("telefono", width=150)
         tabla.column("correo", width=250)
- 
+
         tabla.pack(
             fill="both",
             expand=True,
@@ -233,7 +229,7 @@ class SoftwareFJInterfaz:
         self.tabla_clientes = tabla
         # Aqui lleno la tabla con los clientes registrados en la clase Cliente.
         self.actualizar_tabla_clientes()
- 
+
     def actualizar_tabla_clientes(self, lista_clientes=None):
         """Esta funcion borra la tabla de clientes y la llena otra vez. Si no recibe una lista, muestra todos los clientes registrados."""
         if lista_clientes is None:
@@ -242,7 +238,7 @@ class SoftwareFJInterfaz:
             self.tabla_clientes.delete(fila)
         for cliente in lista_clientes:
             self.tabla_clientes.insert("", "end", values=(cliente.identificador, cliente.nombre, cliente.telefono, cliente.correo))
- 
+
     def buscar_cliente(self, texto):
         """Esta funcion busca un cliente por su documento usando el metodo de la clase Cliente."""
         texto = texto.strip()
@@ -256,7 +252,7 @@ class SoftwareFJInterfaz:
             self.manejar_error(error)
         else:
             self.actualizar_tabla_clientes([cliente_encontrado])
- 
+
     def abrir_formulario_cliente(self):
         """Esta funcion abre una ventana pequena con el formulario para registrar un cliente."""
         formulario = tk.Toplevel(self.ventana_principal)
@@ -265,7 +261,7 @@ class SoftwareFJInterfaz:
         formulario.config(bg="#0C1A34")
         formulario.transient(self.ventana_principal)
         formulario.grab_set()  # Esto bloquea la ventana principal mientras el formulario este abierto.
- 
+
         # Aqui creo los labels y los campos de texto del formulario.
         campos = ["Documento", "Nombre completo", "Telefono", "Correo electronico"]
         entradas = []
@@ -275,7 +271,7 @@ class SoftwareFJInterfaz:
             entrada = tk.Entry(formulario, font=("Segoe UI", 14))
             entrada.pack(padx=40, fill="x")
             entradas.append(entrada)
- 
+
         # Esta funcion se ejecuta cuando se presiona el boton Guardar.
         def guardar_cliente():
             try:
@@ -287,11 +283,11 @@ class SoftwareFJInterfaz:
                 messagebox.showinfo("Cliente registrado", "El cliente se registro correctamente")
                 formulario.destroy()
                 self.actualizar_tabla_clientes()
- 
+
         boton_guardar = tk.Button(formulario, text="💾 Guardar cliente", font=("Segoe UI", 15), bg="#0AA552", fg="white", activebackground="#2CF769", activeforeground="#022211", command=guardar_cliente)
         boton_guardar.pack(pady=25)
         self.quitar_bordes_botones(boton_guardar)
- 
+
     def mostrar_pestaña_servicios(self):
         self.limpiar_frame_principal()
         # Este es el frame donde iran el H1 y el subtitulo de servicios.
@@ -303,7 +299,7 @@ class SoftwareFJInterfaz:
         # Subtitulo
         subtitulo = tk.Label(frame_encabezado_servicios, text="Catalogo de servicios disponibles", font=("Segoe UI", 14), bg="#0C1A34", fg="#DDE8FF")
         subtitulo.pack()
- 
+
         # Aqui creo el frame con los botones para crear un servicio y ver su detalle.
         frame_botones_servicios = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_botones_servicios.pack(side="top", fill="x", pady=25)
@@ -313,7 +309,7 @@ class SoftwareFJInterfaz:
         boton_detalle = tk.Button(frame_botones_servicios, text="🔎 Ver detalle", font=("Segoe UI", 16), bg="#0060FD", fg="white", activebackground="#2CC8F7", activeforeground="#022211", command=self.ver_detalle_servicio)
         boton_detalle.pack(side="left", padx=10)
         self.quitar_bordes_botones(boton_detalle)
- 
+
         # Aqui creo el frame que contiene la tabla de servicios.
         frame_lista_servicios = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_lista_servicios.pack(side="top", fill="both", expand=True)
@@ -321,24 +317,24 @@ class SoftwareFJInterfaz:
         titulo_lista_servicios.pack(side="top", fill="x")
         columnas = ("id", "tipo", "nombre", "descripcion", "precio", "costo")
         self.tabla_servicios = ttk.Treeview(frame_lista_servicios, columns=columnas, show="headings")
- 
+
         self.tabla_servicios.heading("id", text="ID")
         self.tabla_servicios.heading("tipo", text="Tipo")
         self.tabla_servicios.heading("nombre", text="Nombre")
         self.tabla_servicios.heading("descripcion", text="Descripción")
         self.tabla_servicios.heading("precio", text="Precio")
         self.tabla_servicios.heading("costo", text="Costo calculado")
- 
+
         self.tabla_servicios.column("id", width=50)
         self.tabla_servicios.column("tipo", width=150)
         self.tabla_servicios.column("nombre", width=150)
         self.tabla_servicios.column("descripcion", width=230)
         self.tabla_servicios.column("precio", width=100)
         self.tabla_servicios.column("costo", width=120)
- 
+
         self.tabla_servicios.pack(fill="both", expand=True, padx=20, pady=10)
         self.actualizar_tabla_servicios()
- 
+
     def actualizar_tabla_servicios(self):
         """Esta funcion borra la tabla de servicios y la llena otra vez con la lista de servicios."""
         for fila in self.tabla_servicios.get_children():
@@ -350,7 +346,7 @@ class SoftwareFJInterfaz:
             except Exception:
                 costo = "Error"
             self.tabla_servicios.insert("", "end", iid=servicio.identificador, values=(servicio.identificador, type(servicio).__name__, servicio.nombre, servicio.descripcion, "$" + f"{servicio.precio:,.0f}", costo))
- 
+
     def ver_detalle_servicio(self):
         """Esta funcion muestra la informacion completa del servicio seleccionado usando mostrar_informacion_entidad."""
         seleccion = self.tabla_servicios.selection()
@@ -360,7 +356,7 @@ class SoftwareFJInterfaz:
         for servicio in self.lista_servicios:
             if servicio.identificador == seleccion[0]:
                 messagebox.showinfo("Detalle del servicio", servicio.mostrar_informacion_entidad())
- 
+
     def abrir_formulario_servicio(self):
         """Esta funcion abre una ventana pequena con el formulario para crear un servicio."""
         formulario = tk.Toplevel(self.ventana_principal)
@@ -369,40 +365,40 @@ class SoftwareFJInterfaz:
         formulario.config(bg="#0C1A34")
         formulario.transient(self.ventana_principal)
         formulario.grab_set()
- 
+
         # Lista desplegable para escoger el tipo de servicio.
         etiqueta_tipo = tk.Label(formulario, text="Tipo de servicio", font=("Segoe UI", 13), bg="#0C1A34", fg="white")
         etiqueta_tipo.pack(pady=(15, 0))
         combo_tipo = ttk.Combobox(formulario, values=["Reserva de sala", "Alquiler de equipo", "Asesoria especializada"], state="readonly", font=("Segoe UI", 14))
         combo_tipo.pack(padx=40, fill="x")
         combo_tipo.current(0)
- 
+
         etiqueta_nombre = tk.Label(formulario, text="Nombre del servicio", font=("Segoe UI", 13), bg="#0C1A34", fg="white")
         etiqueta_nombre.pack(pady=(15, 0))
         entrada_nombre = tk.Entry(formulario, font=("Segoe UI", 14))
         entrada_nombre.pack(padx=40, fill="x")
- 
+
         etiqueta_descripcion = tk.Label(formulario, text="Descripcion", font=("Segoe UI", 13), bg="#0C1A34", fg="white")
         etiqueta_descripcion.pack(pady=(15, 0))
         entrada_descripcion = tk.Entry(formulario, font=("Segoe UI", 14))
         entrada_descripcion.pack(padx=40, fill="x")
- 
+
         etiqueta_precio = tk.Label(formulario, text="Precio", font=("Segoe UI", 13), bg="#0C1A34", fg="white")
         etiqueta_precio.pack(pady=(15, 0))
         entrada_precio = tk.Entry(formulario, font=("Segoe UI", 14))
         entrada_precio.pack(padx=40, fill="x")
- 
+
         # Estos dos campos cambian segun el tipo de servicio.
         etiqueta_dato1 = tk.Label(formulario, text="Capacidad de personas", font=("Segoe UI", 13), bg="#0C1A34", fg="white")
         etiqueta_dato1.pack(pady=(15, 0))
         entrada_dato1 = tk.Entry(formulario, font=("Segoe UI", 14))
         entrada_dato1.pack(padx=40, fill="x")
- 
+
         etiqueta_dato2 = tk.Label(formulario, text="Horas de la sala", font=("Segoe UI", 13), bg="#0C1A34", fg="white")
         etiqueta_dato2.pack(pady=(15, 0))
         entrada_dato2 = tk.Entry(formulario, font=("Segoe UI", 14))
         entrada_dato2.pack(padx=40, fill="x")
- 
+
         def cambiar_etiquetas(evento):
             tipo = combo_tipo.get()
             entrada_dato2.config(state="normal")
@@ -419,7 +415,7 @@ class SoftwareFJInterfaz:
                 entrada_dato2.delete(0, "end")
                 entrada_dato2.config(state="disabled")
         combo_tipo.bind("<<ComboboxSelected>>", cambiar_etiquetas)
- 
+
         def guardar_servicio():
             try:
                 self.crear_servicio(combo_tipo.get(), entrada_nombre.get(), entrada_descripcion.get(), entrada_precio.get(), entrada_dato1.get(), entrada_dato2.get())
@@ -429,11 +425,11 @@ class SoftwareFJInterfaz:
                 messagebox.showinfo("Servicio creado", "El servicio se creo correctamente")
                 formulario.destroy()
                 self.actualizar_tabla_servicios()
- 
+
         boton_guardar = tk.Button(formulario, text="💾 Guardar servicio", font=("Segoe UI", 15), bg="#0AA552", fg="white", activebackground="#2CF769", activeforeground="#022211", command=guardar_servicio)
         boton_guardar.pack(pady=25)
         self.quitar_bordes_botones(boton_guardar)
- 
+
     def mostrar_pestaña_reservas(self):
         self.limpiar_frame_principal()
         frame_encabezado_reservas = tk.Frame(self.frame_principal, bg="#0C1A34")
@@ -444,11 +440,11 @@ class SoftwareFJInterfaz:
         # subtitulo.
         subtitulo = tk.Label(frame_encabezado_reservas, text="Gestion de reservas", font=("Segoe UI", 14), bg="#0C1A34", fg="#DDE8FF")
         subtitulo.pack()
- 
+
         # Aqui creo el frame de la primera fila del formulario: cliente, servicio y duracion.
         frame_formulario_fila1 = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_formulario_fila1.pack(side="top", fill="x", pady=(20, 5))
- 
+
         label_cliente = tk.Label(frame_formulario_fila1, text="Cliente:", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
         label_cliente.pack(side="left", padx=(20, 5))
         # Aqui lleno la lista desplegable con los clientes registrados.
@@ -458,7 +454,7 @@ class SoftwareFJInterfaz:
             nombres_clientes.append(cliente.identificador + " - " + cliente.nombre)
         self.combo_cliente_reserva = ttk.Combobox(frame_formulario_fila1, values=nombres_clientes, state="readonly", font=("Segoe UI", 13), width=20)
         self.combo_cliente_reserva.pack(side="left", padx=5)
- 
+
         label_servicio = tk.Label(frame_formulario_fila1, text="Servicio:", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
         label_servicio.pack(side="left", padx=(15, 5))
         # Aqui lleno la lista desplegable con los servicios creados.
@@ -467,16 +463,16 @@ class SoftwareFJInterfaz:
             nombres_servicios.append(servicio.identificador + " - " + servicio.nombre)
         self.combo_servicio_reserva = ttk.Combobox(frame_formulario_fila1, values=nombres_servicios, state="readonly", font=("Segoe UI", 13), width=20)
         self.combo_servicio_reserva.pack(side="left", padx=5)
- 
+
         label_duracion = tk.Label(frame_formulario_fila1, text="Horas:", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
         label_duracion.pack(side="left", padx=(15, 5))
         self.entrada_duracion_reserva = tk.Entry(frame_formulario_fila1, font=("Segoe UI", 14), width=5)
         self.entrada_duracion_reserva.pack(side="left", padx=5)
- 
+
         # Aqui creo la segunda fila con los botones de crear, confirmar, procesar y cancelar.
         frame_formulario_fila2 = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_formulario_fila2.pack(side="top", fill="x", pady=(5, 15))
- 
+
         boton_crear_reserva = tk.Button(frame_formulario_fila2, text="➕ Crear", font=("Segoe UI", 14), bg="#0AA552", fg="white", activebackground="#2CF769", activeforeground="#022211", command=self.crear_reserva_desde_pestaña)
         boton_crear_reserva.pack(side="left", padx=(20, 10))
         self.quitar_bordes_botones(boton_crear_reserva)
@@ -489,10 +485,10 @@ class SoftwareFJInterfaz:
         boton_cancelar_reserva = tk.Button(frame_formulario_fila2, text="❌ Cancelar", font=("Segoe UI", 14), bg="#F72C2F", fg="white", activebackground="#740505", activeforeground="#FCFCFC", command=lambda: self.accion_reserva_seleccionada("cancelar"))
         boton_cancelar_reserva.pack(side="left", padx=10)
         self.quitar_bordes_botones(boton_cancelar_reserva)
- 
+
         # Aqui se crea la tabla con la lista de reservas.
         self.crear_tabla_reservas()
- 
+
     def crear_tabla_reservas(self):
         # Este es el frame que contiene el titulo y la tabla de reservas.
         frame_lista_reservas = tk.Frame(self.frame_principal, bg="#0C1A34")
@@ -501,29 +497,29 @@ class SoftwareFJInterfaz:
         titulo_lista_reservas.pack(side="top", fill="x")
         columnas = ("id", "cliente", "servicio", "duracion", "estado")
         self.tabla_reservas = ttk.Treeview(frame_lista_reservas, columns=columnas, show="headings")
- 
+
         self.tabla_reservas.heading("id", text="ID")
         self.tabla_reservas.heading("cliente", text="Cliente")
         self.tabla_reservas.heading("servicio", text="Servicio")
         self.tabla_reservas.heading("duracion", text="Horas")
         self.tabla_reservas.heading("estado", text="Estado")
- 
+
         self.tabla_reservas.column("id", width=60)
         self.tabla_reservas.column("cliente", width=200)
         self.tabla_reservas.column("servicio", width=200)
         self.tabla_reservas.column("duracion", width=80)
         self.tabla_reservas.column("estado", width=130)
- 
+
         self.tabla_reservas.pack(fill="both", expand=True, padx=20, pady=10)
         self.actualizar_tabla_reservas()
- 
+
     def actualizar_tabla_reservas(self):
         """Esta funcion borra la tabla de reservas y la llena otra vez con la lista de reservas."""
         for fila in self.tabla_reservas.get_children():
             self.tabla_reservas.delete(fila)
         for reserva in self.lista_reservas:
             self.tabla_reservas.insert("", "end", iid=reserva.identificador, values=(reserva.identificador, reserva.cliente.nombre, reserva.servicio.nombre, reserva.duracion, reserva.estado))
- 
+
     def crear_reserva_desde_pestaña(self):
         """Esta funcion toma los datos del formulario de reservas y crea la reserva."""
         try:
@@ -539,7 +535,7 @@ class SoftwareFJInterfaz:
             self.entrada_duracion_reserva.delete(0, "end")
         finally:
             self.actualizar_tabla_reservas()
- 
+
     def accion_reserva_seleccionada(self, accion):
         """Esta funcion confirma, procesa o cancela la reserva que este seleccionada en la tabla."""
         seleccion = self.tabla_reservas.selection()
@@ -561,8 +557,8 @@ class SoftwareFJInterfaz:
             messagebox.showinfo("Reserva", "La accion '" + accion + "' se realizo correctamente")
         finally:
             self.actualizar_tabla_reservas()
- 
- 
+
+
     def mostrar_pestaña_logs(self):
         self.limpiar_frame_principal()
         frame_encabezado_logs = tk.Frame(self.frame_principal, bg="#0C1A34")
@@ -579,7 +575,7 @@ class SoftwareFJInterfaz:
         self.quitar_bordes_botones(boton_actualizar_logs)
         # Aqui se crea el cuadro donde se muestra el contenido del archivo de logs.
         self.crear_tabla_logs()
- 
+
     def crear_tabla_logs(self):
         # Este frame contiene el cuadro de texto y la barra de desplazamiento.
         frame_texto_logs = tk.Frame(self.frame_principal, bg="#0C1A34")
@@ -593,7 +589,7 @@ class SoftwareFJInterfaz:
         texto_logs.tag_config("error", foreground="#FF6B6B")
         texto_logs.tag_config("warning", foreground="#FAB903")
         texto_logs.tag_config("debug", foreground="#8FA3C7")
- 
+
         # Aqui leo el archivo de logs que configuro logger_config, si no se puede leer muestro un mensaje.
         archivo = None
         lineas = []
@@ -605,7 +601,7 @@ class SoftwareFJInterfaz:
         finally:
             if archivo is not None:
                 archivo.close()
- 
+
         for linea in lineas:
             if " - ERROR - " in linea:
                 texto_logs.insert("end", linea, "error")
@@ -617,8 +613,8 @@ class SoftwareFJInterfaz:
                 texto_logs.insert("end", linea)
         texto_logs.see("end")
         texto_logs.config(state="disabled")  # Asi el usuario no puede escribir en el cuadro.
- 
-    # ====================== FUNCIONES DE APOYO ======================
+
+    # Estas funciones son de apoyo
     def manejar_error(self, error, mostrar=True):
         """Esta funcion guarda el error en el log y, si mostrar es True, avisa al usuario con una ventana. El programa nunca se cierra."""
         mensaje = type(error).__name__ + ": " + str(error)
@@ -633,7 +629,7 @@ class SoftwareFJInterfaz:
             else:
                 texto = "Ocurrio un error inesperado: " + str(error)
             messagebox.showerror("Error", texto)
- 
+
     def convertir_numero(self, texto, nombre_campo, entero=True, solo_positivo=True):
         """Esta funcion convierte el texto de un campo a numero. Si no se puede lanza DatoInvalidoError encadenado con el error original."""
         try:
@@ -646,7 +642,7 @@ class SoftwareFJInterfaz:
         if solo_positivo and numero <= 0:
             raise excepciones.DatoInvalidoError("El campo " + nombre_campo + " debe ser mayor a 0")
         return numero
- 
+
     def crear_servicio(self, tipo, nombre, descripcion, precio, dato1, dato2):
         """Esta funcion crea un servicio del tipo que se pida y lo guarda en la lista de servicios."""
         # El precio negativo no lo reviso aqui, lo revisa la clase Servicio.
@@ -668,7 +664,7 @@ class SoftwareFJInterfaz:
         self.lista_servicios.append(nuevo_servicio)
         logger.info("Servicio creado: " + identificador + " - " + nuevo_servicio.nombre + " (" + tipo + ")")
         return nuevo_servicio
- 
+
     def crear_reserva(self, cliente, servicio, duracion):
         """Esta funcion crea una reserva y la guarda en la lista de reservas."""
         duracion = self.convertir_numero(duracion, "duracion (horas)")
@@ -677,205 +673,16 @@ class SoftwareFJInterfaz:
         self.lista_reservas.append(nueva_reserva)
         logger.info("Reserva creada: " + identificador)
         return nueva_reserva
- 
-    def simular_operaciones(self):
-        """Esta funcion simula operaciones completas (validas e invalidas) para mostrar que el programa sigue funcionando aunque haya errores."""
-        exitosas = 0
-        fallidas = 0
-        # Estas variables empiezan en None por si alguna operacion falla.
-        cliente1 = None
-        sala = None
-        equipo = None
-        asesoria = None
-        reserva1 = None
-        logger.info("---------- Inicia la simulacion de operaciones ----------")
- 
-        # Operacion 1: registrar un cliente valido
-        try:
-            Cliente("1012345678", "Juan Perez", "3001234567", "juan@email.com")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 2: registrar un cliente invalido (ID con letras)
-        try:
-            Cliente("12AB56", "Pedro Ruiz", "3101234567", "pedro@email.com")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 3: registrar otro cliente valido
-        try:
-            Cliente("1098765432", "Maria Gomez", "3157654321", "maria@correo.com")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 4: registrar un cliente invalido (correo sin @)
-        try:
-            Cliente("1055566677", "Carlos Diaz", "3201112233", "carlos.correo.com")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 5: buscar un cliente que si existe
-        try:
-            cliente1 = Cliente.obtener_datos_cliente_especifico("1012345678")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 6: buscar un cliente que no existe
-        try:
-            Cliente.obtener_datos_cliente_especifico("999999999")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 7: crear una sala valida
-        try:
-            sala = self.crear_servicio("Reserva de sala", "Sala de juntas", "Sala con proyector", "50000", "10", "3")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 8: crear un alquiler de equipo invalido (precio negativo)
-        try:
-            self.crear_servicio("Alquiler de equipo", "Proyector", "Proyector HD", "-5000", "2", "1")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 9: crear un alquiler de equipo valido
-        try:
-            equipo = self.crear_servicio("Alquiler de equipo", "Portatil", "Portatil para trabajo", "15000", "3", "2")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 10: crear una asesoria valida
-        try:
-            asesoria = self.crear_servicio("Asesoria especializada", "Asesoria Python", "Asesoria de programacion", "30000", "4", "")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 11: crear una asesoria invalida (nombre vacio)
-        try:
-            self.crear_servicio("Asesoria especializada", "", "Sin nombre", "30000", "4", "")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operaciones de reservas (la clase Reserva ya esta implementada).
-        # Operacion 12: crear y confirmar una reserva valida
-        try:
-            reserva1 = self.crear_reserva(cliente1, sala, "3")
-            reserva1.confirmar()
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 13: reserva invalida (la duracion no es un numero)
-        try:
-            self.crear_reserva(cliente1, equipo, "abc")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 14: cancelar la reserva
-        try:
-            reserva1.cancelar()
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 15: cancelar otra vez la misma reserva (operacion no permitida)
-        try:
-            reserva1.cancelar()
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 16: reserva con un servicio que no esta disponible
-        try:
-            equipo.disponible = False
-            self.crear_reserva(cliente1, equipo, "2")
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
-        finally:
-            # Dejo el servicio disponible otra vez
-            if equipo is not None:
-                equipo.disponible = True
- 
-        # Operacion 17: crear, confirmar y procesar una reserva valida
-        try:
-            reserva2 = self.crear_reserva(cliente1, asesoria, "6")
-            reserva2.confirmar()
-            reserva2.procesar()
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        # Operacion 18: procesar una reserva que todavia no esta confirmada (no permitido)
-        try:
-            reserva3 = self.crear_reserva(cliente1, sala, "2")
-            reserva3.procesar()
-        except Exception as error:
-            self.manejar_error(error, False)
-            fallidas += 1
-        else:
-            exitosas += 1
- 
-        logger.info("Fin de la simulacion. Exitosas: " + str(exitosas) + " - Con error controlado: " + str(fallidas))
-        messagebox.showinfo("Simulacion terminada", "Operaciones exitosas: " + str(exitosas) + "\nOperaciones con error controlado: " + str(fallidas) + "\n\nRevisa la pestaña Logs para ver el detalle.")
-        # Vuelvo a mostrar el inicio para que se actualice el resumen.
-        self.mostrar_pestaña_inicio()
- 
+
     def quitar_bordes_botones(self, boton):
         """Esta funcion quita los bordes a los botones"""
         boton.config(bd=0, highlightthickness=0, relief="flat")
- 
+
     def configurar_efectos_hover(self, boton):
         """Esta funcion configura los efectos hover para los botones de la barra lateral izquierda. Cuando el mouse pasa por encima del boton, el color de fondo cambia a un azul mas oscuro. Cuando el mouse sale del boton, el color de fondo vuelve a su color original."""
         boton.bind("<Enter>", lambda e: boton.config(bg="#1F3C6E"))
         boton.bind("<Leave>", lambda e: boton.config(bg="#10264E"))
- 
+
     def lanzar_interfaz(self):
         """Esta funcion lanza la interfaz grafica del software. Es la funcion que se llama desde el script principal main.py para iniciar el programa."""
         self.ventana_principal.mainloop()
