@@ -1,5 +1,4 @@
 import logging
-import os
 
 class ConfiguradorLogger:
     """En esta clase se configura el logger para Software FJ. Aqui defino el formato de los logs, el nivel de log y creo el archivo donde se guardaran los logs."""
