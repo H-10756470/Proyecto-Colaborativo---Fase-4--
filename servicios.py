@@ -1,28 +1,7 @@
-
-<<<<<<< HEAD
-# =====================================================
-# PARTE C - MODULO DE SERVICIOS
-# Proyecto Software FJ
-#
-# En este archivo se crean las clases relacionadas
-# con los servicios que ofrece la empresa.
-#
-# Se utiliza:
-# - Herencia
-# - Clases abstractas
-# - Encapsulamiento
-# - Excepciones personalizadas
-# - Logger
-# - Metodos heredados de EntidadBasica
-# =====================================================
-
+# PARTE C - MODULO DE SERVICIOS Proyecto Software FJ
+# En este archivo cree las clases de servicios que ofrece la empresgita.
 # Importamos abstractmethod para poder crear metodos abstractos
 from abc import abstractmethod
-
-=======
-# PARTE C - MODULO DE SERVICIOS Proyecto Software FJ
-# En este archivo cree las clases de servicios que ofrece la empresa.
->>>>>>> e7323ba8551a3a63ef0b6cd8aa01192513faa1b3
 # Importamos la clase base creada en la Parte A
 from modelos_base import EntidadBasica
 # Importamos las excepciones personalizadas del proyecto
@@ -30,23 +9,9 @@ import excepciones
 # Importamos la configuracion del logger
 import logger_config
 # CLASE SERVICIO
-<<<<<<< HEAD
-# =====================================================
-# Esta clase sirve como clase base para todos los
-# los servicios ofrecidos por Software FJ.
-#
-# Hereda de EntidadBasica porque todo servicio
-# tiene un identificador unico.
-#
-# Ahora es abstracta porque tiene metodos abstractos
-# (calcular_costo y describir_servicio) que cada
-# servicio hijo esta obligado a implementar.
-# =====================================================
-
-=======
 # Esta clase sirve para clase base en todos los servicios ofrecidos por Software FJ.
 # Hereda de EntidadBasica porque todo servicio tiene un id unico.
->>>>>>> e7323ba8551a3a63ef0b6cd8aa01192513faa1b3
+# Ahora es abstracta porque tiene metodos abstractos (calcular_costo y describir_servicio) que cada servicio hijo debe implementar.
 class Servicio(EntidadBasica):
 
     # este es el constructor de la clase, Aqui recibimos el identificador, nombre, descripcion y precio del servicio.
@@ -69,7 +34,6 @@ class Servicio(EntidadBasica):
             self._nombre = nombre
             self._descripcion = descripcion
             self._precio = precio
-
             # Todo servicio nuevo empieza disponible
             self._disponible = True
 
@@ -126,13 +90,10 @@ class Servicio(EntidadBasica):
             )
 
         self._precio = valor
-<<<<<<< HEAD
-
-    # Getter para saber si el servicio esta disponible
+    # Getter para saber si el servicio esta disponible (la clase Reserva lo usa)
     @property
     def disponible(self):
         return self._disponible
-
     # Setter para cambiar la disponibilidad del servicio
     @disponible.setter
     def disponible(self, valor):
@@ -149,27 +110,15 @@ class Servicio(EntidadBasica):
             )
 
         self._disponible = valor
-
-    # ==========================================
-    # METODOS ABSTRACTOS
-    # ==========================================
-
-    # Cada servicio calcula su costo a su manera (polimorfismo)
+    # Metodo abstracto: cada servicio calcula su costo a su manera (polimorfismo)
     @abstractmethod
     def calcular_costo(self):
         pass
-
-    # Cada servicio se describe a su manera (polimorfismo)
+    # Metodo abstracto: cada servicio se describe a su manera (polimorfismo)
     @abstractmethod
     def describir_servicio(self):
         pass
-
-    # ==========================================
-    # METODOS DE APOYO
-    # ==========================================
-
-    # Este metodo revisa que un dato numerico sea mayor a 0.
-    # Lo usan los servicios hijos para validar sus parametros.
+    # Este metodo revisa que un dato numerico sea mayor a 0, lo usan los servicios hijos para validar sus datos propios.
     def validar_numero_positivo(self, valor, nombre_campo):
 
         if not isinstance(valor, (int, float)) or valor <= 0:
@@ -183,9 +132,7 @@ class Servicio(EntidadBasica):
             )
 
         return valor
-
-    # Este metodo hace de 'sobrecarga': se puede llamar sin parametros,
-    # solo con descuento, o con descuento e impuesto.
+    # Este metodo hace de 'sobrecarga': se puede llamar sin parametros, solo con descuento, o con descuento e impuesto.
     def calcular_costo_final(self, descuento=0, impuesto=0):
 
         costo = self.calcular_costo()
@@ -203,16 +150,7 @@ class Servicio(EntidadBasica):
         costo = costo + (costo * impuesto)
 
         return round(costo, 2)
-
-    # ==========================================
-    # METODOS HEREDADOS DE ENTIDADBASICA
-    # ==========================================
-
-    # Este metodo muestra la informacion
-    # principal del servicio.
-=======
     # Este metodo muestra la informacion principal del servicio.
->>>>>>> e7323ba8551a3a63ef0b6cd8aa01192513faa1b3
     def mostrar_informacion_entidad(self):
 
         return (
@@ -254,23 +192,13 @@ class ReservaDeSalas(Servicio):
             descripcion,
             precio
         )
-<<<<<<< HEAD
-
-        # Datos propios de las salas (se validan antes de guardarlos)
+        # aqui los datos propios de las salas (se validan antes de guardarlos)
         self.capacidad = self.validar_numero_positivo(capacidad, "capacidad")
         self.horas = self.validar_numero_positivo(horas, "horas")
-
-=======
-        # aqui los datos propios de las salas
-        self.capacidad = capacidad
-        self.horas = horas
->>>>>>> e7323ba8551a3a63ef0b6cd8aa01192513faa1b3
     # El costo depende de la tarifa y las horas
     def calcular_costo(self):
 
         return self.precio * self.horas
-<<<<<<< HEAD
-
     # Describimos el servicio con sus datos propios
     def describir_servicio(self):
 
@@ -278,9 +206,6 @@ class ReservaDeSalas(Servicio):
             f"Sala '{self.nombre}' para {self.capacidad} personas "
             f"durante {self.horas} horas."
         )
-
-=======
->>>>>>> e7323ba8551a3a63ef0b6cd8aa01192513faa1b3
     # Mostramos la informacion completa
     def mostrar_informacion_entidad(self):
 
@@ -310,26 +235,16 @@ class AlquilerDeEquipos(Servicio):
             precio
         )
 
-<<<<<<< HEAD
-        # Cantidad de equipos solicitados
+        # aqui la cantidad de equipos solicitados
         self.cantidad = self.validar_numero_positivo(cantidad, "cantidad")
 
-        # Dias de alquiler
-        self.dias = self.validar_numero_positivo(dias, "dias")
-=======
-        # aqui la cantidad de equipos solicitados
-        self.cantidad = cantidad
-
         # aqui los dias de alquiler
-        self.dias = dias
->>>>>>> e7323ba8551a3a63ef0b6cd8aa01192513faa1b3
+        self.dias = self.validar_numero_positivo(dias, "dias")
 
     # El costo depende de cantidad y dias de alquiler
     def calcular_costo(self):
 
         return self.precio * self.cantidad * self.dias
-<<<<<<< HEAD
-
     # Describimos el servicio con sus datos propios
     def describir_servicio(self):
 
@@ -337,9 +252,6 @@ class AlquilerDeEquipos(Servicio):
             f"Alquiler de {self.cantidad} equipo(s) '{self.nombre}' "
             f"por {self.dias} dia(s)."
         )
-
-=======
->>>>>>> e7323ba8551a3a63ef0b6cd8aa01192513faa1b3
     # Mostramos la informacion completa
     def mostrar_informacion_entidad(self):
 
@@ -375,7 +287,6 @@ class AsesoriasEspecializadas(Servicio):
     def calcular_costo(self):
 
         return self.precio * self.horas
-
     # Describimos el servicio con sus datos propios
     def describir_servicio(self):
 
