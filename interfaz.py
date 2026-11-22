@@ -105,9 +105,6 @@ class SoftwareFJInterfaz:
         self.label_nombre_empresa = tk.Label(self.barra_lateral_izquierda, text="Software", font=("Courier New", 25), bg="#10264E", fg="white")
         self.label_nombre_empresa.pack(side="bottom", fill="x")
 
-       
-        
-
         # Hace que se muestre al iniciar la pestaña Inicio
         self.mostrar_pestaña_inicio()
 
@@ -120,33 +117,38 @@ class SoftwareFJInterfaz:
         frame_encabezado_inicio = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_encabezado_inicio.pack(side="top", fill="x")
         # H1
-        H1_inicio = tk.Label(frame_encabezado_inicio, text="Panel Principal - Software FJ", font=("Segoe UI", 24), bg="#0C1A34", fg="white")
+        H1_inicio = tk.Label(frame_encabezado_inicio, text="Panel Principal - Software FJ", font=("Segoe UI", 28), bg="#0C1A34", fg="white")
         H1_inicio.pack(pady=20)
         # Subtitulo
-        subtitulo = tk.Label(frame_encabezado_inicio, text="Gestion de clientes, servicios y reservas", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
+        subtitulo = tk.Label(frame_encabezado_inicio, text="Gestion de clientes, servicios y reservas", font=("Segoe UI", 14), bg="#0C1A34", fg="#DDE8FF")
         subtitulo.pack()
         # Frame padre de los botones "Gestionar Clientes", "Gestionar Servicios"
         frame_botones_fila1 = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_botones_fila1.pack(side="top", fill="x")
         # Boton "Gestionar Clientes"
-        boton_gestionar_clientes = tk.Button(frame_botones_fila1, text="Gestionar Clientes", font=("Segoe UI", 30), bg="#0060FD", fg="white", command=self.mostrar_pestaña_clientes)
+        boton_gestionar_clientes = tk.Button(frame_botones_fila1, text="👤 | Gestionar Clientes", font=("Segoe UI", 27), bg="#0060FD", fg="white", width=20, height=2, command=self.mostrar_pestaña_clientes, activebackground="#2CC8F7", activeforeground="#022211")
         boton_gestionar_clientes.pack(side="left", padx=10, pady=20)
         self.quitar_bordes_botones(boton_gestionar_clientes)
         # Boton "Gestionar Servicios"
-        boton_gestionar_servicios = tk.Button(frame_botones_fila1, text="Gestionar Servicios", font=("Segoe UI", 30), bg="#0BB158", fg="white", command=self.mostrar_pestaña_servicios)
+        boton_gestionar_servicios = tk.Button(frame_botones_fila1, text="⚙️ | Gestionar Servicios", font=("Segoe UI", 27), bg="#0BB158", fg="white", width=20, height=2, command=self.mostrar_pestaña_servicios, activebackground="#2CF769", activeforeground="#022211")
         boton_gestionar_servicios.pack(side="left", padx=10, pady=20)
         self.quitar_bordes_botones(boton_gestionar_servicios)
         # Este frame es padre de "Gestionar Reservas" y "Eventos y Logs"
         frame_botones_fila2 = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_botones_fila2.pack(side="top", fill="x")
         # Boton "Gestionar Reservas"
-        boton_gestionar_reservas = tk.Button(frame_botones_fila2, text="Gestionar Reservas", font=("Segoe UI", 30), bg="#FAB903", fg="white", command=self.mostrar_pestaña_reservas)
+        boton_gestionar_reservas = tk.Button(frame_botones_fila2, text="📅 | Gestionar Reservas", font=("Segoe UI", 27), bg="#FAB903", fg="white", width=20, height=2, command=self.mostrar_pestaña_reservas, activebackground="#EEFF00", activeforeground="#090A00")
         boton_gestionar_reservas.pack(side="left", padx=10, pady=20)
         self.quitar_bordes_botones(boton_gestionar_reservas)
         # Boton "Eventos y Logs"
-        boton_Eventos = tk.Button(frame_botones_fila2, text="Eventos y Logs", font=("Segoe UI", 30), bg="#F72C2F", fg="white", command=self.mostrar_pestaña_logs)
+        boton_Eventos = tk.Button(frame_botones_fila2, text="📄 | Eventos y Logs", font=("Segoe UI", 27), bg="#F72C2F", fg="white", width=20, height=2, command=self.mostrar_pestaña_logs, activebackground="#740505", activeforeground="#FCFCFC")
         boton_Eventos.pack(side="left", padx=10, pady=20)
         self.quitar_bordes_botones(boton_Eventos)
+
+        # Este es el frame que contendra los labels que mostraran un resumen del sistema.
+        frame_resumen = tk.Frame(self.frame_principal, bg="#0C1A34")
+        frame_resumen.pack(fill="both", expand=True)
+
 
     def mostrar_pestaña_clientes(self):
         self.limpiar_frame_principal()
@@ -154,29 +156,28 @@ class SoftwareFJInterfaz:
         frame_encabezado_clientes = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_encabezado_clientes.pack(side="top", fill="x")
         # Aqui creo el H1 y el subtitulo de la pestaña Clientes.
-        H1_clientes = tk.Label(frame_encabezado_clientes, text="Clientes", font=("Segoe UI", 24), bg="#0C1A34", fg="white")
+        H1_clientes = tk.Label(frame_encabezado_clientes, text="Clientes", font=("Segoe UI", 28), bg="#0C1A34", fg="white")
         H1_clientes.pack(pady=20)
-        subtitulo_clientes = tk.Label(frame_encabezado_clientes, text="Gestion de clientes", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
+        subtitulo_clientes = tk.Label(frame_encabezado_clientes, text="Gestion de clientes", font=("Segoe UI", 14), bg="#0C1A34", fg="#DDE8FF")
         subtitulo_clientes.pack() 
         # Aqui creo el frame de busqueda de clientes, que incluye un campo de texto, un boton de busqueda y un boton para registrar clientes.
         frame_busqueda_clientes = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_busqueda_clientes.pack(side="top", fill="x")
         # Aqui creo el campo para buscar a un cliente registrado, creo el boton "Buscar" y "registrar cliente".
-        campo_buscar_cliente = tk.Entry(frame_busqueda_clientes, font=("Segoe UI", 12), width=30)
-        campo_buscar_cliente.pack(side="left", padx=20, pady=10)
-        campo_buscar_cliente.insert(0, "Ingrese la identificacion del cliente...")  # Texto de ejemplo en el campo de búsqueda
+        campo_buscar_cliente = tk.Entry(frame_busqueda_clientes, font=("Segoe UI", 17), fg="#5770A3", )
+        campo_buscar_cliente.pack(side="left", fill="x", padx=20, pady=50, expand=True)
+        campo_buscar_cliente.insert(0, "Ingrese documento de identidad...")  # Texto de ejemplo en el campo de búsqueda
+        campo_buscar_cliente.bind("<FocusIn>", lambda e: campo_buscar_cliente.delete(0, "end"))
 
-        boton_buscar_cliente = tk.Button(frame_busqueda_clientes, text="Buscar", font=("Segoe UI", 12), bg="#0C1A34", fg="white")
-        boton_buscar_cliente.pack(side="left")
-
-        registrar_nuevo_cliente = tk.Button(frame_busqueda_clientes, text="+ Registrar nuevo cliente", font=("Segoe UI", 12), bg="#0C1A34", fg="white")
-        registrar_nuevo_cliente.pack(side="left")
+        registrar_nuevo_cliente = tk.Button(frame_busqueda_clientes, text="➕ Registrar nuevo cliente ", font=("Segoe UI", 16), bg="#0AA552", fg="white", activebackground="#2CF769", activeforeground="#022211")
+        registrar_nuevo_cliente.pack(side="left", fill="x", expand=True, pady=50)
+        self.quitar_bordes_botones(registrar_nuevo_cliente)
 
         # Aqui creo el frame que contendra la lista de registro de todos los clientes.
         frame_lista_clientes = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_lista_clientes.pack(side="top", fill="both", expand=True)
         # este es el titulo de la lista que muestra todos los clientes registrados en el sistema
-        titulo_lista_clientes = tk.Label(frame_lista_clientes, text="Lista de Clientes Registrados", font=("Segoe UI", 12), bg="#0C1A34", fg="white" )
+        titulo_lista_clientes = tk.Label(frame_lista_clientes, text="📋 Lista de Clientes Registrados", font=("Segoe UI", 16), bg="#0060FD", fg="white" )
         titulo_lista_clientes.pack(side="top", fill="x")
 
 
@@ -186,10 +187,10 @@ class SoftwareFJInterfaz:
         frame_encabezado_servicios = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_encabezado_servicios.pack(side="top", fill="x")
         # H1
-        H1_servicios = tk.Label(frame_encabezado_servicios, text="Servicios", font=("Segoe UI", 24), bg="#0C1A34", fg="white")
+        H1_servicios = tk.Label(frame_encabezado_servicios, text="Servicios", font=("Segoe UI", 28), bg="#0C1A34", fg="white")
         H1_servicios.pack(pady=20)
         # Subtitulo
-        subtitulo = tk.Label(frame_encabezado_servicios, text="Catalogo de servicios disponibles", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
+        subtitulo = tk.Label(frame_encabezado_servicios, text="Catalogo de servicios disponibles", font=("Segoe UI", 14), bg="#0C1A34", fg="#DDE8FF")
         subtitulo.pack()
 
 
@@ -198,10 +199,10 @@ class SoftwareFJInterfaz:
         frame_encabezado_reservas = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_encabezado_reservas.pack(side="top", fill="x")
         # H1
-        H1_reservas = tk.Label(frame_encabezado_reservas, text="Reservas", font=("Segoe UI", 24), bg="#0C1A34", fg="white")
+        H1_reservas = tk.Label(frame_encabezado_reservas, text="Reservas", font=("Segoe UI", 28), bg="#0C1A34", fg="white")
         H1_reservas.pack(pady=20)
         # subtitulo.
-        subtitulo = tk.Label(frame_encabezado_reservas, text="Gestion de reservas", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
+        subtitulo = tk.Label(frame_encabezado_reservas, text="Gestion de reservas", font=("Segoe UI", 14), bg="#0C1A34", fg="#DDE8FF")
         subtitulo.pack()
 
 
@@ -210,10 +211,10 @@ class SoftwareFJInterfaz:
         frame_encabezado_logs = tk.Frame(self.frame_principal, bg="#0C1A34")
         frame_encabezado_logs.pack(side="top", fill="x")
         # H1
-        H1_logs = tk.Label(frame_encabezado_logs, text="Logs", font=("Segoe UI", 24), bg="#0C1A34", fg="white")
+        H1_logs = tk.Label(frame_encabezado_logs, text="Logs", font=("Segoe UI", 28), bg="#0C1A34", fg="white")
         H1_logs.pack(pady=20)
         # Subtitulo
-        subtitulo = tk.Label(frame_encabezado_logs, text="Historial de eventos y errores", font=("Segoe UI", 14), bg="#0C1A34", fg="white")
+        subtitulo = tk.Label(frame_encabezado_logs, text="Historial de eventos y errores", font=("Segoe UI", 14), bg="#0C1A34", fg="#DDE8FF")
         subtitulo.pack()
 
     def quitar_bordes_botones(self, boton):
